@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">Vydaje</string>
+    <string name="app_name">Výdaje</string>
+    <string name="new_record">Nový výdaj</string>
+    <string name="save">Uložit</string>
+    <string name="name">Název</string>
+    <string name="datetime">Datum a čas</string>
+    <string name="amount">Částka</string>
 </resources>
