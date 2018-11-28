@@ -79,14 +79,23 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/tvCoords"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/tvLatitude"
+        android:layout_width="174dp"
+        android:layout_height="23dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Zaměřuji šířku"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etDateTime" />
+
+    <TextView
+        android:id="@+id/tvLongitude"
+        android:layout_width="174dp"
+        android:layout_height="23dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/mapView"
+        android:text="Zaměřuji délku"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/etDateTime" />
 
 </android.support.constraint.ConstraintLayout>

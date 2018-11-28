@@ -4,7 +4,6 @@ Aplikace slouží pro správu výdajů například v domácnosti. Aplikace je vy
 ## Co aplikace nabízí?
 Aplikace **Výdaje** nabízí:
 
-- sdílení svých výdajů mezí více účtů
 - možnost přidání geolokace k výdaji
 - Nadpis a možnost napsání detailního popisu k výdaji
 - možnost vyfocení účtenky a přidání k danému výdaji
@@ -22,7 +21,7 @@ Kód aplikace je napsán v programovacím jazyce **Java**.
  - Geo lokace - Google Maps
  - Stahování dat z API a nahrávání dat do API
  - Využití fotoaparátu pro vyfotografování účtenek
- - Listy, taby, gesta
+ - Listy, taby, ...
  - Grafy výdajů
  - A další...
  

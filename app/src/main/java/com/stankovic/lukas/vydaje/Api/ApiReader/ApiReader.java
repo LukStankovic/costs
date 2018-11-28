@@ -22,6 +22,17 @@ public class ApiReader {
         return "error";
     }
 
+    public static String parseOutput(String jsonString) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject = new JSONObject(jsonString);
+            return jsonObject.get("output").toString();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return "error";
+    }
+
     public static String readStream(InputStream inputStream) throws IOException {
         InputStreamReader streamReader = new InputStreamReader(inputStream);
         BufferedReader reader = new BufferedReader(streamReader);

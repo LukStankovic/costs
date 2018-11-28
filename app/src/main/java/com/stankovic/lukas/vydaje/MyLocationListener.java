@@ -12,17 +12,20 @@ import org.w3c.dom.Text;
 
 public class MyLocationListener implements LocationListener {
 
-    TextView textView;
+    TextView longitude;
+    TextView latitude;
 
-    public MyLocationListener(TextView textView) {
-        this.textView = textView;
+    public MyLocationListener(TextView longitude, TextView latitude) {
+        this.longitude = longitude;
+        this.latitude = latitude;
     }
 
     @Override
     public void onLocationChanged(Location loc) {
-        Double longitude = loc.getLongitude();
-        Double latitude = loc.getLatitude();
-        textView.setText(longitude + " " + latitude);
+        Double loadedLongitude = loc.getLongitude();
+        Double loadedLatitude = loc.getLatitude();
+        longitude.setText(Double.toString(loadedLongitude));
+        latitude.setText(Double.toString(loadedLatitude));
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.stankovic.lukas.vydaje.Api.ApiRequest;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.stankovic.lukas.vydaje.Api.ApiReader.ApiReader;
 
@@ -38,6 +39,7 @@ public class ApiPostAsyncRequest extends AsyncTask<String, Void, String> {
     private String postData(String actionUrl, String paramsString) {
         int responseCode = 404;
         String status = "error";
+        String response = "";
         try{
             String url = baseUrl + actionUrl;
             URL urlObj = new URL(url);
@@ -62,9 +64,9 @@ public class ApiPostAsyncRequest extends AsyncTask<String, Void, String> {
             wr.flush();
             wr.close();
             responseCode = conn.getResponseCode();
-            String response = ApiReader.readStream(conn.getInputStream());
+            response = ApiReader.readStream(conn.getInputStream());
 
-            status = ApiReader.parseStatus(response);
+            //status = ApiReader.parseStatus(response);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
@@ -72,7 +74,8 @@ public class ApiPostAsyncRequest extends AsyncTask<String, Void, String> {
         } catch (KeyManagementException e) {
             e.printStackTrace();
         }
-        return status;
+
+        return response;
     }
 
 
