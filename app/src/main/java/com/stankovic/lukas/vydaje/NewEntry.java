@@ -2,7 +2,9 @@ package com.stankovic.lukas.vydaje;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -15,9 +17,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.stankovic.lukas.vydaje.Api.ApiReader.ApiReader;
 import com.stankovic.lukas.vydaje.Api.ApiRequest.ApiPostAsyncRequest;
 import com.stankovic.lukas.vydaje.Api.ApiRequest.ApiParamsBuilder;
+import com.stankovic.lukas.vydaje.Model.User;
 
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
@@ -30,6 +34,8 @@ public class NewEntry extends Activity {
     EditText etAmount;
     EditText etDateTime;
     Button btnSave;
+
+    User loggedUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +50,13 @@ public class NewEntry extends Activity {
         etDateTime = (EditText)findViewById(R.id.etDateTime);
         etAmount = (EditText)findViewById(R.id.etAmount);
         btnSave = (Button)findViewById(R.id.btnEntrySave);
+
+
+        SharedPreferences settings = getApplicationContext().getSharedPreferences("settings", Context.MODE_PRIVATE);
+        String userJson = settings.getString("user", "");
+
+        Gson gson = new Gson();
+        loggedUser = gson.fromJson(userJson, User.class);
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +96,7 @@ public class NewEntry extends Activity {
         params.put("dateTime", dateTime);
         params.put("longitude", longitude);
         params.put("latitude", latitude);
+        params.put("user_id", Integer.toString(loggedUser.id));
 
         ApiPostAsyncRequest apiAsyncRequest = new ApiPostAsyncRequest();
         String status = "error";

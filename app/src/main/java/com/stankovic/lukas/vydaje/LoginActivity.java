@@ -93,8 +93,10 @@ public class LoginActivity extends Activity {
         }
 
         if (ApiReader.parseStatus(response).equals("ok")) {
+
+            String user = ApiReader.parseOutput(response);
             SharedPreferences.Editor editor = settings.edit();
-            editor.putString("user", loginName);
+            editor.putString("user", user);
             editor.apply();
             return true;
         }
