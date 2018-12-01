@@ -33,6 +33,28 @@ public class ApiReader {
         return "error";
     }
 
+    public static JSONObject parse(String jsonString, String element) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject = new JSONObject(jsonString);
+            return (JSONObject) jsonObject.get(element);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonObject;
+    }
+
+    public static String parseElement(String jsonString, String element) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject = new JSONObject(jsonString);
+            return jsonObject.get(element).toString();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return "error";
+    }
+
     public static String readStream(InputStream inputStream) throws IOException {
         InputStreamReader streamReader = new InputStreamReader(inputStream);
         BufferedReader reader = new BufferedReader(streamReader);

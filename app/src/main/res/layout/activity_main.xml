@@ -22,6 +22,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ListView
+        android:id="@+id/lvEntries"
         android:layout_width="368dp"
         android:layout_height="198dp"
         android:layout_marginStart="8dp"
