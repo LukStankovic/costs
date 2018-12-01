@@ -1,11 +1,11 @@
 # Výdaje
-Aplikace slouží pro správu výdajů například v domácnosti. Aplikace je vytvořena jako projekt v rámci předmětu TAMZII pro systém Adnroid.
+Aplikace slouží pro správu výdajů například v domácnosti. Aplikace je vytvořena jako projekt v rámci předmětu TAMZII pro systém Android.
 
 ## Co aplikace nabízí?
 Aplikace **Výdaje** nabízí:
 
 - možnost přidání geolokace k výdaji
-- Nadpis a možnost napsání detailního popisu k výdaji
+- Nadpis výdaje
 - možnost vyfocení účtenky a přidání k danému výdaji
 
 Aplikace je připojená k webovému API. V tomto API se budou ukládat veškerá sdílená data.
@@ -18,11 +18,11 @@ Aplikace je vytvořena pro operační systém Android. Minimální API pro spuš
 Kód aplikace je napsán v programovacím jazyce **Java**. 
 
 ## Použité featury
- - Geo lokace - Google Maps
+ - Geo lokace
  - Stahování dat z API a nahrávání dat do API
  - Využití fotoaparátu pro vyfotografování účtenek
  - Listy, taby, ...
- - Grafy výdajů
+ - V budoucnu grafy výdajů
  - A další...
  
  ## Ostatní informace
