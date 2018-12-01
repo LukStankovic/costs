@@ -2,6 +2,7 @@ package com.stankovic.lukas.vydaje;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -23,6 +24,9 @@ import com.stankovic.lukas.vydaje.Api.ApiRequest.ApiPostAsyncRequest;
 import com.stankovic.lukas.vydaje.Api.ApiRequest.ApiParamsBuilder;
 import com.stankovic.lukas.vydaje.Model.User;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
@@ -51,6 +55,12 @@ public class NewEntry extends Activity {
         etAmount = (EditText)findViewById(R.id.etAmount);
         btnSave = (Button)findViewById(R.id.btnEntrySave);
 
+
+        Date currentDateTime = Calendar.getInstance().getTime();
+        java.text.SimpleDateFormat simpleDateFormat = new java.text.SimpleDateFormat("d. M. yyyy H:m");
+        String formattedCurrentDate = simpleDateFormat.format(currentDateTime);
+
+        etDateTime.setText(formattedCurrentDate);
 
         SharedPreferences settings = getApplicationContext().getSharedPreferences("settings", Context.MODE_PRIVATE);
         String userJson = settings.getString("user", "");
