@@ -72,7 +72,11 @@ public class MainActivity extends Activity {
             e.printStackTrace();
         }
         String entriesString = ApiReader.parseElement(response, "output");
-        Type listType = new TypeToken<ArrayList<Entry>>(){}.getType();
-        entries = new Gson().fromJson(entriesString, listType);
+        if (!entriesString.equals("")) {
+            Type listType = new TypeToken<ArrayList<Entry>>(){}.getType();
+            entries = new Gson().fromJson(entriesString, listType);
+        } else {
+            entries = new ArrayList<>();
+        }
     }
 }

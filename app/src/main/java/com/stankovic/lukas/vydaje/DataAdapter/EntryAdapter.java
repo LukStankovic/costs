@@ -41,7 +41,7 @@ public class EntryAdapter extends ArrayAdapter<Entry>{
             holder.txtName = (TextView)row.findViewById(R.id.txtName);
             holder.txtAmount = (TextView)row.findViewById(R.id.txtAmount);
             holder.txtDateTime = (TextView)row.findViewById(R.id.txtDateTime);
-            holder.txtAccount = (TextView) row.findViewById(R.id.txtAccount);
+            holder.txtCategory = (TextView) row.findViewById(R.id.txtCategory);
 
             row.setTag(holder);
         }
@@ -51,7 +51,7 @@ public class EntryAdapter extends ArrayAdapter<Entry>{
         }
         Entry entry = data.get(position);
         holder.txtName.setText(entry.name);
-        holder.txtAccount.setText(Integer.toString(entry.accountId));
+        holder.txtCategory.setText(entry.categoryName);
         holder.txtAmount.setText(Double.toString(entry.amount));
         holder.txtDateTime.setText(entry.datetime);
 
@@ -64,6 +64,6 @@ public class EntryAdapter extends ArrayAdapter<Entry>{
         TextView txtAmount;
         TextView txtName;
         TextView txtDateTime;
-        TextView txtAccount;
+        TextView txtCategory;
     }
 }

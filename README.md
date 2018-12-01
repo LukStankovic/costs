@@ -1,5 +1,5 @@
 # Výdaje
-Aplikace slouží pro správu výdajů například v domácnosti. Aplikace je vytvořena jako projekt v rámci předmětu TAMZII pro systém Android.
+Aplikace slouží pro správu výdajů například v domácnosti. Aplikace je vytvořena jako projekt v rámci předmětu TAMZII pro systém And roid.
 
 ## Co aplikace nabízí?
 Aplikace **Výdaje** nabízí:
