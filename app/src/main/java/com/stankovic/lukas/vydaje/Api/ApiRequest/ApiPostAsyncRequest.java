@@ -1,9 +1,13 @@
 package com.stankovic.lukas.vydaje.Api.ApiRequest;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.ProgressBar;
 
 import com.stankovic.lukas.vydaje.Api.ApiReader.ApiReader;
+import com.stankovic.lukas.vydaje.MainActivity;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -23,7 +27,11 @@ public class ApiPostAsyncRequest extends AsyncTask<String, Void, String> {
     private final int ACTION_URL = 0;
     private final int PARAMS_STRING = 1;
 
+    private ProgressDialog dialog;
 
+    public ApiPostAsyncRequest(ProgressDialog dialog) {
+        this.dialog = dialog;
+    }
 
     @Override
     protected String doInBackground(String... strings) {
@@ -32,8 +40,8 @@ public class ApiPostAsyncRequest extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPreExecute() {
-        super.onPreExecute();
-
+        dialog.setMessage("Načítám");
+        dialog.show();
     }
 
     private String postData(String actionUrl, String paramsString) {
@@ -78,8 +86,10 @@ public class ApiPostAsyncRequest extends AsyncTask<String, Void, String> {
         return response;
     }
 
-
-    protected void onPostExecute(Boolean result) {
-
+    @Override
+    protected void onPostExecute(String s) {
+        if (dialog.isShowing()) {
+            dialog.dismiss();
+        }
     }
 }

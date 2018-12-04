@@ -1,6 +1,7 @@
 package com.stankovic.lukas.vydaje;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,14 +20,8 @@ import com.stankovic.lukas.vydaje.DataAdapter.EntryAdapter;
 import com.stankovic.lukas.vydaje.Model.Entry;
 import com.stankovic.lukas.vydaje.Model.User;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends Activity {
@@ -35,6 +30,12 @@ public class MainActivity extends Activity {
     SharedPreferences settings;
     User user;
     private ArrayList<Entry> entries;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        renderEntries();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +50,7 @@ public class MainActivity extends Activity {
 
         Button btnNewEntry = (Button)findViewById(R.id.btnNewEntry);
         lvEntries = (ListView)findViewById(R.id.lvEntries);
-        loadEntries();
-        EntryAdapter adapter = new EntryAdapter(this, R.layout.entry_layout, entries);
-        lvEntries.setAdapter(adapter);
+        renderEntries();
 
         btnNewEntry.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,8 +60,14 @@ public class MainActivity extends Activity {
         });
     }
 
+    private void renderEntries() {
+        loadEntries();
+        EntryAdapter adapter = new EntryAdapter(this, R.layout.entry_layout, entries);
+        lvEntries.setAdapter(adapter);
+    }
+
     private void loadEntries() {
-        ApiPostAsyncRequest apiAsyncRequest = new ApiPostAsyncRequest();
+        ApiPostAsyncRequest apiAsyncRequest = new ApiPostAsyncRequest(new ProgressDialog(this));
         String response = "";
         try {
             response = apiAsyncRequest.execute("entry/user/" + user.id, ApiParamsBuilder.buildParams()).get();
@@ -72,7 +77,7 @@ public class MainActivity extends Activity {
             e.printStackTrace();
         }
         String entriesString = ApiReader.parseElement(response, "output");
-        if (!entriesString.equals("")) {
+        if (!entriesString.equals("error")) {
             Type listType = new TypeToken<ArrayList<Entry>>(){}.getType();
             entries = new Gson().fromJson(entriesString, listType);
         } else {

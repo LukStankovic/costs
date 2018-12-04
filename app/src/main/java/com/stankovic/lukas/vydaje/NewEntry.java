@@ -2,19 +2,26 @@ package com.stankovic.lukas.vydaje;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +31,7 @@ import com.stankovic.lukas.vydaje.Api.ApiRequest.ApiPostAsyncRequest;
 import com.stankovic.lukas.vydaje.Api.ApiRequest.ApiParamsBuilder;
 import com.stankovic.lukas.vydaje.Model.User;
 
-import java.text.SimpleDateFormat;
+import java.io.File;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -38,8 +45,15 @@ public class NewEntry extends Activity {
     EditText etAmount;
     EditText etDateTime;
     Button btnSave;
+    Spinner category;
+    Button btnCamera;
+    ImageView imgBill;
 
     User loggedUser;
+
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int CONTENT_REQUEST=1337;
+    private File output;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +68,12 @@ public class NewEntry extends Activity {
         etDateTime = (EditText)findViewById(R.id.etDateTime);
         etAmount = (EditText)findViewById(R.id.etAmount);
         btnSave = (Button)findViewById(R.id.btnEntrySave);
-
+        category = (Spinner) findViewById(R.id.category);
+        btnCamera = (Button)findViewById(R.id.btnCamera);
+        imgBill = (ImageView) findViewById(R.id.imgBill);
 
         Date currentDateTime = Calendar.getInstance().getTime();
-        java.text.SimpleDateFormat simpleDateFormat = new java.text.SimpleDateFormat("d. M. yyyy H:m");
+        java.text.SimpleDateFormat simpleDateFormat = new java.text.SimpleDateFormat("d. M. yyyy HH:mm");
         String formattedCurrentDate = simpleDateFormat.format(currentDateTime);
 
         etDateTime.setText(formattedCurrentDate);
@@ -67,6 +83,22 @@ public class NewEntry extends Activity {
 
         Gson gson = new Gson();
         loggedUser = gson.fromJson(userJson, User.class);
+
+        btnCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+
+                Long tsLong = System.currentTimeMillis()/1000;
+                String ts = tsLong.toString();
+                output = new File(dir, ts + ".jpeg");
+                i.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(output));
+
+                startActivityForResult(i, CONTENT_REQUEST);
+            }
+        });
+
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +119,17 @@ public class NewEntry extends Activity {
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CONTENT_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                Bitmap img = BitmapFactory.decodeFile(output.getAbsolutePath());
+                imgBill.setImageBitmap(img);
+            }
+        }
+    }
+
+
     private int save() {
         btnSave.setEnabled(false);
         HashMap<String, String> params = new HashMap<>();
@@ -96,6 +139,8 @@ public class NewEntry extends Activity {
         String dateTime = etDateTime.getText().toString();
         String longitude = tvLongitude.getText().toString();
         String latitude = tvLatitude.getText().toString();
+        String categoryString = Long.toString(category.getSelectedItemId());
+
 
         if (name.equals("") || amount.equals("") || dateTime.equals("") || longitude.equals("Zaměřuji šířku") || latitude.equals("Zaměřuji délku")) {
             return -1;
@@ -107,8 +152,10 @@ public class NewEntry extends Activity {
         params.put("longitude", longitude);
         params.put("latitude", latitude);
         params.put("user_id", Integer.toString(loggedUser.id));
+        params.put("category_id", categoryString);
+        params.put("img_path", output.getAbsolutePath());
 
-        ApiPostAsyncRequest apiAsyncRequest = new ApiPostAsyncRequest();
+        ApiPostAsyncRequest apiAsyncRequest = new ApiPostAsyncRequest(new ProgressDialog(this));
         String status = "error";
         String response = "";
         try {

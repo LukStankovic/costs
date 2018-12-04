@@ -1,27 +1,24 @@
 package com.stankovic.lukas.vydaje;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.common.api.Api;
 import com.stankovic.lukas.vydaje.Api.ApiReader.ApiReader;
 import com.stankovic.lukas.vydaje.Api.ApiRequest.ApiParamsBuilder;
 import com.stankovic.lukas.vydaje.Api.ApiRequest.ApiPostAsyncRequest;
 
-import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.concurrent.ExecutionException;
 
 public class LoginActivity extends Activity {
@@ -82,7 +79,7 @@ public class LoginActivity extends Activity {
 
         params.put("login", loginName);
         params.put("password", hashedPassword);
-        ApiPostAsyncRequest apiAsyncRequest = new ApiPostAsyncRequest();
+        ApiPostAsyncRequest apiAsyncRequest = new ApiPostAsyncRequest(new ProgressDialog(this));
         String response = "";
         try {
             response = apiAsyncRequest.execute("users/login/", ApiParamsBuilder.buildParams(params)).get();

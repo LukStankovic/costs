@@ -22,9 +22,24 @@
         app:layout_constraintHorizontal_bias="0.555"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <Button
+        android:id="@+id/btnCamera"
+        style="@android:style/Widget.DeviceDefault.Button"
+        android:layout_width="137dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="208dp"
+        android:background="@drawable/main_button_style"
+        android:text="@string/vyfotit"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLongitude" />
+
     <EditText
         android:id="@+id/etEntryName"
-        android:layout_width="360dp"
+        android:layout_width="350dp"
         android:layout_height="45dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="15dp"
@@ -34,7 +49,8 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/etAmount"
@@ -68,24 +84,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etAmount" />
 
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/mapView"
-        android:layout_width="350dp"
-        android:layout_height="120dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnEntrySave"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <TextView
         android:id="@+id/tvLatitude"
         android:layout_width="174dp"
         android:layout_height="23dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="Zaměřuji šířku"
+        android:text="@string/zam_uji_ku"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/category" />
 
@@ -95,7 +100,7 @@
         android:layout_height="23dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="Zaměřuji délku"
+        android:text="@string/zam_uji_d_lku"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/category" />
 
@@ -106,8 +111,24 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="8dp"
+        android:entries="@array/categories"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etDateTime" />
+
+    <ImageView
+        android:id="@+id/imgBill"
+        android:layout_width="209dp"
+        android:layout_height="183dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@android:color/background_light"
+        app:layout_constraintBottom_toTopOf="@+id/btnEntrySave"
+        app:layout_constraintEnd_toStartOf="@+id/btnCamera"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLatitude"
+        app:layout_constraintVertical_bias="0.4" />
 
 </android.support.constraint.ConstraintLayout>

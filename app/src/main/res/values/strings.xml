@@ -7,6 +7,17 @@
     <string name="amount">Částka</string>
     <string name="title_activity_settings">Settings</string>
 
+    <string-array name="categories">
+        <item>Běžné výdaje</item>
+        <item>Jídlo</item>
+        <item>Restaurace</item>
+        <item>Auto</item>
+        <item>Doprava</item>
+        <item>Cestování</item>
+        <item>Bydlení</item>
+    </string-array>
+
+
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->
@@ -78,4 +89,7 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
+    <string name="vyfotit">Vyfotit</string>
+    <string name="zam_uji_ku">Zaměřuji šířku</string>
+    <string name="zam_uji_d_lku">Zaměřuji délku</string>
 </resources>
