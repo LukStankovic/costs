@@ -11,6 +11,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -29,6 +31,7 @@ import com.google.gson.Gson;
 import com.stankovic.lukas.vydaje.Api.ApiReader.ApiReader;
 import com.stankovic.lukas.vydaje.Api.ApiRequest.ApiPostAsyncRequest;
 import com.stankovic.lukas.vydaje.Api.ApiRequest.ApiParamsBuilder;
+import com.stankovic.lukas.vydaje.Core.ConnectivityDialogs;
 import com.stankovic.lukas.vydaje.Model.User;
 
 import java.io.File;
@@ -54,6 +57,9 @@ public class NewEntry extends Activity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int CONTENT_REQUEST=1337;
     private File output;
+    private static boolean wifiConnected = false;
+    private static boolean mobileConnected = false;
+    private static boolean onlineMode = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,9 +147,13 @@ public class NewEntry extends Activity {
         String latitude = tvLatitude.getText().toString();
         String categoryString = Long.toString(category.getSelectedItemId());
 
+        if (!onlineMode) {
+            ConnectivityDialogs.offlineDialog(NewEntry.this);
+            return 0;
+        }
 
         if (name.equals("") || amount.equals("") || dateTime.equals("") || longitude.equals("Zaměřuji šířku") || latitude.equals("Zaměřuji délku")) {
-            return -1;
+            return 0;
         }
 
         params.put("name", name);
@@ -178,5 +188,23 @@ public class NewEntry extends Activity {
             return;
         }
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 50, locationListener);
+    }
+
+    // Checks the network connection and sets the wifiConnected and mobileConnected
+    // variables accordingly.
+    private void updateConnectedFlags() {
+        ConnectivityManager connMgr =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeInfo = connMgr.getActiveNetworkInfo();
+        if (activeInfo != null && activeInfo.isConnected()) {
+            wifiConnected = activeInfo.getType() == ConnectivityManager.TYPE_WIFI;
+            mobileConnected = activeInfo.getType() == ConnectivityManager.TYPE_MOBILE;
+        } else {
+            wifiConnected = false;
+            mobileConnected = false;
+        }
+
+        onlineMode = wifiConnected || mobileConnected;
     }
 }
