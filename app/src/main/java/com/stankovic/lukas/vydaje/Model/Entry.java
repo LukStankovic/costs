@@ -13,9 +13,10 @@ public class Entry {
     public final String datetime;
     public final String timestamp;
     public final String categoryName;
+    public final String imgPath;
 
     public Entry(int id, int userId, int accountId, String name, double amount, String longitude,
-                 String latitude, String datetime, String timestamp, int categoryId, String categoryName) {
+                 String latitude, String datetime, String timestamp, int categoryId, String categoryName, String imgPath) {
         this.id = id;
         this.userId = userId;
         this.accountId = accountId;
@@ -27,5 +28,6 @@ public class Entry {
         this.timestamp = timestamp;
         this.categoryId = categoryId;
         this.categoryName = categoryName;
+        this.imgPath = imgPath;
     }
 }

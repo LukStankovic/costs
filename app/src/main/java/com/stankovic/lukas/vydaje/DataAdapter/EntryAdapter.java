@@ -52,7 +52,7 @@ public class EntryAdapter extends ArrayAdapter<Entry>{
         Entry entry = data.get(position);
         holder.txtName.setText(entry.name);
         holder.txtCategory.setText(entry.categoryName);
-        holder.txtAmount.setText(Double.toString(entry.amount));
+        holder.txtAmount.setText("-" + Double.toString(entry.amount) + " Kč");
         holder.txtDateTime.setText(entry.datetime);
 
         return row;

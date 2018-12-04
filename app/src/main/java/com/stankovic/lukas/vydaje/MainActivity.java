@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -44,12 +45,12 @@ public class MainActivity extends Activity {
         settings = getApplicationContext().getSharedPreferences("settings", Context.MODE_PRIVATE);
 
         String userString = settings.getString("user", "");
-        Gson gson = new Gson();
+        final Gson gson = new Gson();
         user = gson.fromJson(userString, User.class);
 
 
-        Button btnNewEntry = (Button)findViewById(R.id.btnNewEntry);
-        lvEntries = (ListView)findViewById(R.id.lvEntries);
+        Button btnNewEntry = (Button) findViewById(R.id.btnNewEntry);
+        lvEntries = (ListView) findViewById(R.id.lvEntries);
         renderEntries();
 
         btnNewEntry.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +58,17 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, NewEntry.class));
             }
+        });
+
+        lvEntries.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
+                Intent intent = new Intent(MainActivity.this, EntryDetail.class);
+                intent.putExtra("entry", gson.toJson(entries.get(position)));
+                startActivity(intent);
+            }
+
         });
     }
 

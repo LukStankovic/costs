@@ -151,9 +151,9 @@ public class NewEntry extends Activity {
         params.put("dateTime", dateTime);
         params.put("longitude", longitude);
         params.put("latitude", latitude);
-        params.put("user_id", Integer.toString(loggedUser.id));
-        params.put("category_id", categoryString);
-        params.put("img_path", output.getAbsolutePath());
+        params.put("userId", Integer.toString(loggedUser.id));
+        params.put("categoryId", categoryString);
+        params.put("imgPath", output.getAbsolutePath());
 
         ApiPostAsyncRequest apiAsyncRequest = new ApiPostAsyncRequest(new ProgressDialog(this));
         String status = "error";

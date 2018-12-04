@@ -44,13 +44,14 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="8dp"
+        android:capitalize="sentences"
         android:ems="10"
         android:hint="@string/name"
+        android:importantForAutofill="no"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/etAmount"
@@ -124,7 +125,6 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:src="@android:color/background_light"
         app:layout_constraintBottom_toTopOf="@+id/btnEntrySave"
         app:layout_constraintEnd_toStartOf="@+id/btnCamera"
         app:layout_constraintStart_toStartOf="parent"
