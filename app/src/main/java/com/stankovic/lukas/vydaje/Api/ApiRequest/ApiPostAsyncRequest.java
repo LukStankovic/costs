@@ -1,7 +1,12 @@
 package com.stankovic.lukas.vydaje.Api.ApiRequest;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ProgressBar;
@@ -29,8 +34,10 @@ public class ApiPostAsyncRequest extends AsyncTask<String, Void, String> {
 
     private ProgressDialog dialog;
 
-    public ApiPostAsyncRequest(ProgressDialog dialog) {
-        this.dialog = dialog;
+    private Context context;
+
+    public ApiPostAsyncRequest(Context context) {
+        this.context = context;
     }
 
     @Override
@@ -40,8 +47,8 @@ public class ApiPostAsyncRequest extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPreExecute() {
-        dialog.setMessage("Načítám");
-        dialog.show();
+        super.onPreExecute();
+        dialog = ProgressDialog.show(context, "Progress Dialog Title Text","Process Description Text", true);
     }
 
     private String postData(String actionUrl, String paramsString) {
@@ -82,14 +89,12 @@ public class ApiPostAsyncRequest extends AsyncTask<String, Void, String> {
         } catch (KeyManagementException e) {
             e.printStackTrace();
         }
-
         return response;
     }
 
     @Override
     protected void onPostExecute(String s) {
-        if (dialog.isShowing()) {
-            dialog.dismiss();
-        }
+        super.onPostExecute(s);
+        dialog.dismiss();
     }
 }

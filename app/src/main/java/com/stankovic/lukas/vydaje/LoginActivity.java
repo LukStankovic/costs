@@ -79,7 +79,7 @@ public class LoginActivity extends Activity {
 
         params.put("login", loginName);
         params.put("password", hashedPassword);
-        ApiPostAsyncRequest apiAsyncRequest = new ApiPostAsyncRequest(new ProgressDialog(this));
+        ApiPostAsyncRequest apiAsyncRequest = new ApiPostAsyncRequest(this);
         String response = "";
         try {
             response = apiAsyncRequest.execute("users/login/", ApiParamsBuilder.buildParams(params)).get();

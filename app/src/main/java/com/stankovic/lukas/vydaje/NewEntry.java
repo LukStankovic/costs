@@ -61,6 +61,8 @@ public class NewEntry extends Activity {
     private static boolean mobileConnected = false;
     private static boolean onlineMode = false;
 
+    private boolean isImage = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,6 +133,7 @@ public class NewEntry extends Activity {
             if (resultCode == RESULT_OK) {
                 Bitmap img = BitmapFactory.decodeFile(output.getAbsolutePath());
                 imgBill.setImageBitmap(img);
+                isImage = true;
             }
         }
     }
@@ -147,6 +150,7 @@ public class NewEntry extends Activity {
         String latitude = tvLatitude.getText().toString();
         String categoryString = Long.toString(category.getSelectedItemId());
 
+        updateConnectedFlags();
         if (!onlineMode) {
             ConnectivityDialogs.offlineDialog(NewEntry.this);
             return 0;
@@ -163,9 +167,9 @@ public class NewEntry extends Activity {
         params.put("latitude", latitude);
         params.put("userId", Integer.toString(loggedUser.id));
         params.put("categoryId", categoryString);
-        params.put("imgPath", output.getAbsolutePath());
+        params.put("imgPath", isImage ? output.getAbsolutePath() : "");
 
-        ApiPostAsyncRequest apiAsyncRequest = new ApiPostAsyncRequest(new ProgressDialog(this));
+        ApiPostAsyncRequest apiAsyncRequest = new ApiPostAsyncRequest(this);
         String status = "error";
         String response = "";
         try {

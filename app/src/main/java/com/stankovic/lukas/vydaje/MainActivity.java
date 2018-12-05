@@ -91,7 +91,7 @@ public class MainActivity extends Activity {
     }
 
     private void loadEntries() {
-        ApiPostAsyncRequest apiAsyncRequest = new ApiPostAsyncRequest(new ProgressDialog(this));
+        ApiPostAsyncRequest apiAsyncRequest = new ApiPostAsyncRequest(this);
         String response = "";
         try {
             response = apiAsyncRequest.execute("entry/user/" + user.id, ApiParamsBuilder.buildParams()).get();
