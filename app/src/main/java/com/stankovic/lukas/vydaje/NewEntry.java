@@ -194,8 +194,6 @@ public class NewEntry extends Activity {
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 50, locationListener);
     }
 
-    // Checks the network connection and sets the wifiConnected and mobileConnected
-    // variables accordingly.
     private void updateConnectedFlags() {
         ConnectivityManager connMgr =
                 (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);

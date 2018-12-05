@@ -17,6 +17,9 @@
         <item>Bydlení</item>
     </string-array>
 
+    <!--  Menu items -->
+    <string name="logout">Odhlásit</string>
+    <string name="refresh">Načíst znova</string>
 
     <!-- Strings related to Settings -->
 
