@@ -1,9 +1,6 @@
 package com.stankovic.lukas.vydaje;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,25 +16,20 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.stankovic.lukas.vydaje.Api.ApiReader.ApiReader;
-import com.stankovic.lukas.vydaje.Api.ApiRequest.ApiParamsBuilder;
-import com.stankovic.lukas.vydaje.Api.ApiRequest.ApiPostAsyncRequest;
+import com.stankovic.lukas.vydaje.Api.ApiRequest.ApiEntryPostAsyncRequest;
+import com.stankovic.lukas.vydaje.Api.ApiRequest.Base.ApiParamsBuilder;
 import com.stankovic.lukas.vydaje.Core.ConnectivityDialogs;
-import com.stankovic.lukas.vydaje.DataAdapter.EntryAdapter;
 import com.stankovic.lukas.vydaje.Model.Entry;
 import com.stankovic.lukas.vydaje.Model.User;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends Activity {
 
     ListView lvEntries;
     SharedPreferences settings;
     User user;
-    private ArrayList<Entry> entries;
+    private ArrayList<Entry> entries = new ArrayList<>();
     private static boolean wifiConnected = false;
     private static boolean mobileConnected = false;
     private static boolean onlineMode = false;
@@ -88,28 +80,12 @@ public class MainActivity extends Activity {
     private void renderEntries() {
         if (onlineMode) {
             loadEntries();
-            EntryAdapter adapter = new EntryAdapter(this, R.layout.entry_layout, entries);
-            lvEntries.setAdapter(adapter);
         }
     }
 
     private void loadEntries() {
-        ApiPostAsyncRequest apiAsyncRequest = new ApiPostAsyncRequest(this);
-        String response = "";
-        try {
-            response = apiAsyncRequest.execute("entry/user/" + user.id, ApiParamsBuilder.buildParams()).get();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        String entriesString = ApiReader.parseElement(response, "output");
-        if (!entriesString.equals("error")) {
-            Type listType = new TypeToken<ArrayList<Entry>>(){}.getType();
-            entries = new Gson().fromJson(entriesString, listType);
-        } else {
-            entries = new ArrayList<>();
-        }
+        ApiEntryPostAsyncRequest apiAsyncRequest = new ApiEntryPostAsyncRequest(this, entries, lvEntries);
+        apiAsyncRequest.execute("entry/user/" + user.id, ApiParamsBuilder.buildParams());
     }
 
     @Override

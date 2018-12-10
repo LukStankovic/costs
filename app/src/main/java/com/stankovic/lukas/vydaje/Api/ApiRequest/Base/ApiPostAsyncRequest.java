@@ -1,4 +1,4 @@
-package com.stankovic.lukas.vydaje.Api.ApiRequest;
+package com.stankovic.lukas.vydaje.Api.ApiRequest.Base;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -34,7 +34,7 @@ public class ApiPostAsyncRequest extends AsyncTask<String, Void, String> {
 
     private ProgressDialog dialog;
 
-    private Context context;
+    protected Context context;
 
     public ApiPostAsyncRequest(Context context) {
         this.context = context;
@@ -48,7 +48,7 @@ public class ApiPostAsyncRequest extends AsyncTask<String, Void, String> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        dialog = ProgressDialog.show(context, "Progress Dialog Title Text","Process Description Text", true);
+        dialog = ProgressDialog.show(context, "Chroustám","Chroustám data \uD83D\uDCF2", true);
     }
 
     private String postData(String actionUrl, String paramsString) {

@@ -1,4 +1,4 @@
-package com.stankovic.lukas.vydaje.Api.ApiRequest;
+package com.stankovic.lukas.vydaje.Api.ApiRequest.Base;
 
 import android.util.Log;
 

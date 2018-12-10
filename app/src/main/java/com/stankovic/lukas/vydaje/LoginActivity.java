@@ -1,7 +1,6 @@
 package com.stankovic.lukas.vydaje;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,8 +11,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.stankovic.lukas.vydaje.Api.ApiReader.ApiReader;
-import com.stankovic.lukas.vydaje.Api.ApiRequest.ApiParamsBuilder;
-import com.stankovic.lukas.vydaje.Api.ApiRequest.ApiPostAsyncRequest;
+import com.stankovic.lukas.vydaje.Api.ApiRequest.Base.ApiParamsBuilder;
+import com.stankovic.lukas.vydaje.Api.ApiRequest.Base.ApiPostAsyncRequest;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
