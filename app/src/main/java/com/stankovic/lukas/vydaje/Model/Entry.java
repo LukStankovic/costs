@@ -30,4 +30,22 @@ public class Entry {
         this.categoryName = categoryName;
         this.imgPath = imgPath;
     }
+
+    @Override
+    public String toString() {
+        return "Entry{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", accountId=" + accountId +
+                ", categoryId=" + categoryId +
+                ", name='" + name + '\'' +
+                ", amount=" + amount +
+                ", longitude='" + longitude + '\'' +
+                ", latitude='" + latitude + '\'' +
+                ", datetime='" + datetime + '\'' +
+                ", timestamp='" + timestamp + '\'' +
+                ", categoryName='" + categoryName + '\'' +
+                ", imgPath='" + imgPath + '\'' +
+                '}';
+    }
 }

@@ -21,8 +21,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".NewEntry" />
+        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".NewEntry"
+            android:label="@string/new_record" />
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" />
@@ -35,7 +37,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EntryDetail"></activity>
+        <activity android:name=".EntryDetail" />
+        <activity
+            android:name=".GraphsActivity"
+            android:label="@string/grafy"></activity>
     </application>
 
 </manifest>

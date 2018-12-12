@@ -17,12 +17,14 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.stankovic.lukas.vydaje.Api.ApiRequest.ApiEntryPostAsyncRequest;
 import com.stankovic.lukas.vydaje.Api.ApiRequest.Base.ApiParamsBuilder;
 import com.stankovic.lukas.vydaje.Core.ConnectivityDialogs;
 import com.stankovic.lukas.vydaje.Model.Entry;
 import com.stankovic.lukas.vydaje.Model.User;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class MainActivity extends Activity {
@@ -30,12 +32,13 @@ public class MainActivity extends Activity {
     ListView lvEntries;
     SharedPreferences settings;
     User user;
-    private ArrayList<Entry> entries = new ArrayList<>();
+    public static ArrayList<Entry> entries = new ArrayList<>();
     private static boolean wifiConnected = false;
     private static boolean mobileConnected = false;
     private static boolean onlineMode = false;
     private ConnectivityManager connectivityManager;
     private Button btnNewEntry;
+    private Button btnGraphs;
 
     @Override
     protected void onResume() {
@@ -52,12 +55,13 @@ public class MainActivity extends Activity {
         settings = getApplicationContext().getSharedPreferences("settings", Context.MODE_PRIVATE);
 
         String userString = settings.getString("user", "");
-        Log.d("uzivatel", "userString: " + userString);
+
         final Gson gson = new Gson();
         user = gson.fromJson(userString, User.class);
 
 
         btnNewEntry = (Button) findViewById(R.id.btnNewEntry);
+        btnGraphs = (Button) findViewById(R.id.btnGraphs);
         lvEntries = (ListView) findViewById(R.id.lvEntries);
         renderEntries();
 
@@ -65,6 +69,13 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, NewEntry.class));
+            }
+        });
+
+        btnGraphs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, GraphsActivity.class));
             }
         });
 
@@ -91,7 +102,7 @@ public class MainActivity extends Activity {
     }
 
     private void loadEntries() {
-        ApiEntryPostAsyncRequest apiAsyncRequest = new ApiEntryPostAsyncRequest(this, entries, lvEntries);
+        ApiEntryPostAsyncRequest apiAsyncRequest = new ApiEntryPostAsyncRequest(this, lvEntries);
         apiAsyncRequest.execute("entry/user/" + user.id, ApiParamsBuilder.buildParams());
     }
 
