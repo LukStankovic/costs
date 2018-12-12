@@ -40,6 +40,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+
         renderEntries();
     }
 
@@ -80,8 +81,12 @@ public class MainActivity extends Activity {
     }
 
     private void renderEntries() {
+        updateConnectedFlags();
+
         if (onlineMode) {
             loadEntries();
+        } else {
+            ConnectivityDialogs.offlineDialog(MainActivity.this);
         }
     }
 
