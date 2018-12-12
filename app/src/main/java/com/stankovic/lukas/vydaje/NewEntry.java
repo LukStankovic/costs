@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.stankovic.lukas.vydaje.Api.ApiReader.ApiReader;
+import com.stankovic.lukas.vydaje.Api.ApiRequest.ApiNewEntryPostAsyncRequest;
 import com.stankovic.lukas.vydaje.Api.ApiRequest.Base.ApiPostAsyncRequest;
 import com.stankovic.lukas.vydaje.Api.ApiRequest.Base.ApiParamsBuilder;
 import com.stankovic.lukas.vydaje.Core.ConnectivityDialogs;
@@ -109,18 +110,7 @@ public class NewEntry extends Activity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int status = save();
-                if (status == 1) {
-                    Toast.makeText(NewEntry.this, "Uloženo", Toast.LENGTH_SHORT).show();
-                    btnSave.setEnabled(true);
-                    startActivity(new Intent(NewEntry.this, MainActivity.class));
-                } else if (status == -1) {
-                    Toast.makeText(NewEntry.this, "Vyplň veškeré údaje", Toast.LENGTH_SHORT).show();
-                    btnSave.setEnabled(true);
-                } else {
-                    btnSave.setEnabled(true);
-                    Toast.makeText(NewEntry.this, "Chyba", Toast.LENGTH_SHORT).show();
-                }
+                save();
             }
         });
     }
@@ -151,12 +141,12 @@ public class NewEntry extends Activity {
         updateConnectedFlags();
         if (!onlineMode) {
             ConnectivityDialogs.offlineDialog(NewEntry.this);
-            return 0;
+            return -1;
         }
 
         if (name.equals("") || amount.equals("") || dateTime.equals("") || longitude.equals("Zaměřuji šířku") || latitude.equals("Zaměřuji délku")) {
             Toast.makeText(NewEntry.this, "Vyplň veškeré údaje", Toast.LENGTH_SHORT).show();
-            return 0;
+            return -1;
         }
 
         params.put("name", name);
@@ -168,19 +158,10 @@ public class NewEntry extends Activity {
         params.put("categoryId", categoryString);
         params.put("imgPath", isImage ? output.getAbsolutePath() : "");
 
-        ApiPostAsyncRequest apiAsyncRequest = new ApiPostAsyncRequest(this);
-        String status = "error";
-        String response = "";
-        try {
-            response = apiAsyncRequest.execute("entry/save/", ApiParamsBuilder.buildParams(params)).get();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        ApiNewEntryPostAsyncRequest apiAsyncRequest = new ApiNewEntryPostAsyncRequest(this);
+        apiAsyncRequest.execute("entry/save/", ApiParamsBuilder.buildParams(params));
 
-        status = ApiReader.parseStatus(response);
-        return status.equals("ok") ? 1 : 0;
+        return 1;
     }
 
 

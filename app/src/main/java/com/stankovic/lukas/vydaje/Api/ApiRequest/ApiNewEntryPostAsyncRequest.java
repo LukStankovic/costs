@@ -19,32 +19,23 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class ApiNewEntryPostAsyncRequest extends ApiPostAsyncRequest {
-    private ArrayList<Entry> entries;
 
-    private ListView lvEntries;
-
-    public ApiNewEntryPostAsyncRequest(Context context, ArrayList<Entry> entries, ListView lvEntries) {
+    public ApiNewEntryPostAsyncRequest(Context context) {
         super(context);
-        this.entries = entries;
-        this.lvEntries = lvEntries;
+        dialog.setTitle("Ukládání");
+        dialog.setMessage("Ukládám výdaj");
     }
 
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
         String status = ApiReader.parseStatus(s);
-    /*    if (status.equals("ok")) {
-            Toast.makeText(NewEntry.this, "Uloženo", Toast.LENGTH_SHORT).show();
-            btnSave.setEnabled(true);
-            startActivity(new Intent(NewEntry.this, MainActivity.class));
-        } else if (status == -1) {
-            Toast.makeText(NewEntry.this, "Vyplň veškeré údaje", Toast.LENGTH_SHORT).show();
-            btnSave.setEnabled(true);
+        if (status.equals("ok")) {
+            Toast.makeText(context, "Uloženo", Toast.LENGTH_SHORT).show();
+            context.startActivity(new Intent(context, MainActivity.class));
         } else {
-            btnSave.setEnabled(true);
-            Toast.makeText(NewEntry.this, "Chyba", Toast.LENGTH_SHORT).show();
-        }*/
+            Toast.makeText(context, "Chyba", Toast.LENGTH_SHORT).show();
+        }
     }
-
 
 }

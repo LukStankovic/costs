@@ -56,7 +56,7 @@
         android:id="@+id/tvHint"
         android:layout_width="wrap_content"
         android:layout_height="17dp"
-        android:text="Testovací účely: jméno: test, heslo: 123"
+        android:text="Testovací účet: jméno: test, heslo: 123"
         tools:layout_editor_absoluteX="22dp"
         tools:layout_editor_absoluteY="42dp" />
 
