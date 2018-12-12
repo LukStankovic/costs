@@ -51,6 +51,7 @@ public class MainActivity extends Activity {
         settings = getApplicationContext().getSharedPreferences("settings", Context.MODE_PRIVATE);
 
         String userString = settings.getString("user", "");
+        Log.d("uzivatel", "userString: " + userString);
         final Gson gson = new Gson();
         user = gson.fromJson(userString, User.class);
 
