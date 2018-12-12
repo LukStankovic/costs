@@ -1,6 +1,7 @@
 package com.stankovic.lukas.vydaje.Api.ApiRequest;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
@@ -23,6 +24,8 @@ public class ApiEntryPostAsyncRequest extends ApiPostAsyncRequest {
         super(context);
         this.entries = entries;
         this.lvEntries = lvEntries;
+        dialog.setTitle("Načítání");
+        dialog.setMessage("Načítám výdaje");
     }
 
     @Override

@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -70,7 +71,7 @@ public class MainActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
                 Intent intent = new Intent(MainActivity.this, EntryDetail.class);
-                intent.putExtra("entry", gson.toJson(entries.get(position)));
+                intent.putExtra("entry", gson.toJson(lvEntries.getItemAtPosition(position)));
                 startActivity(intent);
             }
 

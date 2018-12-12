@@ -32,12 +32,13 @@ public class ApiPostAsyncRequest extends AsyncTask<String, Void, String> {
     private final int ACTION_URL = 0;
     private final int PARAMS_STRING = 1;
 
-    private ProgressDialog dialog;
+    protected ProgressDialog dialog;
 
     protected Context context;
 
     public ApiPostAsyncRequest(Context context) {
         this.context = context;
+        dialog = ProgressDialog.show(context, "Chroustám","Chroustám data \uD83D\uDCF2", true);
     }
 
     @Override
@@ -48,7 +49,6 @@ public class ApiPostAsyncRequest extends AsyncTask<String, Void, String> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        dialog = ProgressDialog.show(context, "Chroustám","Chroustám data \uD83D\uDCF2", true);
     }
 
     private String postData(String actionUrl, String paramsString) {
