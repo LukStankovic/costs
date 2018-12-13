@@ -10,6 +10,9 @@ Aplikace **Výdaje** nabízí:
 
 Aplikace je připojená k webovému API. V tomto API se budou ukládat veškerá sdílená data.
 
+<img src="http://fotky.stankoviclukas.cz/entries.jpeg" width="300">
+<img src="http://fotky.stankoviclukas.cz/new.jpeg" width="300">
+
 ## Kde aplikaci stáhnu?
 Jelikož je aplikace stále ve vývoji. Pro přístup do uzavřené bety mi tedy, prosím, napište.
 
