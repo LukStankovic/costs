@@ -47,15 +47,17 @@ public class GraphsActivity extends Activity {
     }
 
     private void loadTotals() {
-        DateFormat dateFormat = new SimpleDateFormat("MM");
-        Date date = new Date();
-        int currentMonth = Integer.parseInt(dateFormat.format(date));
+        if (!entries.isEmpty()) {
+            DateFormat dateFormat = new SimpleDateFormat("MM");
+            Date date = new Date();
+            int currentMonth = Integer.parseInt(dateFormat.format(date));
 
-        TextView monthTotal = (TextView)findViewById(R.id.monthTotal);
-        TextView tvTotal = (TextView)findViewById(R.id.total);
+            TextView monthTotal = (TextView) findViewById(R.id.monthTotal);
+            TextView tvTotal = (TextView) findViewById(R.id.total);
 
-        monthTotal.setText("-" + groupedEntries.get(currentMonth-1) + " Kč");
-        tvTotal.setText("-" + total + " Kč");
+            monthTotal.setText("-" + groupedEntries.get(currentMonth - 1) + " Kč");
+            tvTotal.setText("-" + total + " Kč");
+        }
     }
 
 
